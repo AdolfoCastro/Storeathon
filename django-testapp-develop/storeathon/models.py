@@ -1,9 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Carrito(models.Model):
 	total = models.DecimalField(max_digits=20, decimal_places=2)
-	comprador = models.ForeignKey('User', related_name='carrito')
+	comprador = models.ForeignKey(User, related_name='carrito')
 	checkedOut = models.BooleanField(default=False)
 	timestamp = models.DateField(auto_now_add=True)
 
@@ -23,7 +24,7 @@ class Item(models.Model):
 class Tienda(models.Model):
 	nombre = models.CharField(max_length=100)
 	descripcion = models.CharField(max_length=255)
-	dueno = models.ForeignKey('User', 'tienda')
+	dueno = models.ForeignKey(User, related_name='tienda')
 
 class Categoria(models.Model):
 	nombre = models.CharField(max_length=100)

@@ -6,6 +6,9 @@
     xml:lang="{% firstof LANGUAGE_CODE 'en' %}"
     lang="{% firstof LANGUAGE_CODE 'en' %}">
   <head>
+    <link rel="icon" 
+      type="image/png" 
+      href="../images/logo_mini.png">
     <title>{% block title %}{% endblock %} - Nonrel-testapp</title>
 
     {% block css %}
@@ -19,7 +22,7 @@
 
   <body>
     <div id="header">
-      <a id="logo" href="/">Storeathon</a>
+      <a id="logo" href="/"><img src="../images/logo_mini.png">Storeathon</a>
     </div>
 
     <div class="columns">
