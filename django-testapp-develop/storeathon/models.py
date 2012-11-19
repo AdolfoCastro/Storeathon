@@ -30,5 +30,4 @@ class Tienda(models.Model):
 
 class Categoria(models.Model):
 	nombre = models.CharField(max_length=100)
-
-
+	slug = models.SlugField(max_length=110)
