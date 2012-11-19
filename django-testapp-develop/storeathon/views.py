@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
+import datetime
 
 from storeathon.models import Tienda, Item, Categoria
 from storeathon.forms import SignupForm, TiendaForm, ItemForm, CategoriaForm
@@ -117,3 +118,27 @@ def categoria_list(request):
 	return render(request, 'categoria/list_categoria.html', {
 		'categorias': categorias
 		})
+
+def kart_add(request, id):
+	pass
+
+def kart_remove(request, id):
+	pass
+
+def kart(request):
+	try:
+		kart = Carrito.objects.get(comprador=request.user.id, checkedOut=False, timestamp<=datetime.datetime.now()+timedelta(days=1))
+		kart_items = CarritoItem.objects.get(carrito=kart.id)
+	except CarritoItem.DoesNotExist:
+		raise Http404
+
+	return render(request, '', {
+		'kart': kart,
+		'kart_items': kart_items
+		})
+
+def kart_remove_all(request):
+	pass
+
+def kart_checkout(request):
+	pass
