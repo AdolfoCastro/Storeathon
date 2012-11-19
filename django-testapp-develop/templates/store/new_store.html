@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<p>Create a store :D</p>
+<p>Fill the form below to signup in the system ;)</p>
 
 {% if form.errors %}
 <p>Please review your information and resend after correcting it.</p>
@@ -10,6 +10,7 @@
 
 <form method="post" action="/store/new/">{% csrf_token %}
 {{ form.as_p }}
+
 <input type="submit" value="Create Store" />
 </form>
 
