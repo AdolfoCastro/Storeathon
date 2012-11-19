@@ -10,12 +10,6 @@ urlpatterns = patterns('',
     ('^login/$', 'django.contrib.auth.views.login'),
     ('^logout/$', 'django.contrib.auth.views.logout'),
     ('^signup/$', 'storeathon.views.signup'),
-    
-    ('^store/(?P<slug>[-\w]+)$', 'storeathon.views.tienda'),
+    ('^store/(?P<slug>[-w]+)/$', 'storeathon.views.tienda'),
     ('^store/new/$', 'storeathon.views.tienda_new'),
-
-    ('^item/new/$', 'storeathon.views.item_new'),
-
-    ('^categoria/new/$', 'storeathon.views.categoria_new'),
-    ('^categoria/list/$', 'storeathon.views.categoria_list'),
 )
