@@ -15,6 +15,7 @@ class CarritoItem(models.Model):
 	
 class Item(models.Model):
 	nombre = models.CharField(max_length=100)
+	slug = models.SlugField(max_length=110)
 	descripcion = models.CharField(max_length=255)
 	precio = models.DecimalField(max_digits=10, decimal_places=2)
 	categoria = models.ForeignKey('Categoria')
@@ -24,6 +25,7 @@ class Item(models.Model):
 class Tienda(models.Model):
 	nombre = models.CharField(max_length=100)
 	descripcion = models.CharField(max_length=255)
+	slug = models.SlugField(max_length=110)
 	dueno = models.ForeignKey(User, related_name='tienda')
 
 class Categoria(models.Model):
