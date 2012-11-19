@@ -15,7 +15,14 @@ urlpatterns = patterns('',
     ('^store/new/$', 'storeathon.views.tienda_new'),
 
     ('^item/new/$', 'storeathon.views.item_new'),
+    ('^item/(?P<slug>[-\w]+)$', 'storeathon.views.item'),
 
     ('^categoria/new/$', 'storeathon.views.categoria_new'),
     ('^categoria/list/$', 'storeathon.views.categoria_list'),
+
+    ('^kart/add/(?P<slug>[-\w]+)$', 'storeathon.views.kart_add'),
+    ('^kart/remove/(?P<slug>[-\w]+)$', 'storeathon.views/kart_remove'),
+    ('^kart/$', 'storeathon.views.kart'),
+    ('^kart/remove/all', 'storeathon.views.kart_remove_all'),
+    ('^kart/checkout/$', 'storeathon.views.kart_checkout'),
 )

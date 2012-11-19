@@ -83,6 +83,3 @@ class CategoriaForm(forms.Form):
 
 	def clean(self, *args, **kwargs):
 		return super(CategoriaForm, self).clean(*args, **kwargs)
-
-class CarritoItemForm(forms.ModelForm):
-	pass

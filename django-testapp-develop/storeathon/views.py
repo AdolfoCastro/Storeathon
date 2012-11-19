@@ -69,8 +69,9 @@ def item_new(request):
 			new_item.precio = form.cleaned_data['precio']
 			new_item.categoria = Categoria.objects.get(id=form.cleaned_data['categoria'])
 			new_item.existencia = form.cleaned_data['existencia']
-			new_item.tienda = Tienda.objects.get(form.cleaned_data['tienda'])
+			new_item.tienda = Tienda.objects.get(id=form.cleaned_data['tienda'])
 			new_item.slug = slugify(form.cleaned_data['nombre'])
+			new_item.save()
 
 			return HttpResponseRedirect('/item/' + new_item.slug)
 	else:
@@ -85,7 +86,7 @@ def item(request, slug):
 		item = Item.objects.get(slug=slug)
 	except Item.DoesNotExist:
 		raise Http404
-	return render(request, 'item/item.html',{
+	return render(request, 'items/item.html', {
 		'item': item
 		})
 
