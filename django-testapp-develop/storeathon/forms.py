@@ -38,16 +38,28 @@ class TiendaField(forms.CharField):
 			return value
 
 class TiendaForm(forms.Form):
-	nombre = forms.CharField(max_length=100)
-	descripcion = forms.CharField(max_length=255)
+	nombre = TiendaField(max_length=100)
+	descripcion = forms.CharField(max_length=255, widget=forms.Textarea)
 
 	def clean(self,*args, **kwargs):
 		return super(TiendaForm, self).clean(*args, **kwargs)
 
-class ItemForm(forms.ModelForm):
-	class Meta:
-		model = Item
-		exclude = ('tienda',)
+class ItemField(forms.CharField):
+	def clean(self, value):
+		super(ItemField, self).clean(value)
+		try:
+			Item.objects.get(nombre=value)
+			raise forms.ValidationError("That item already exists.")
+		except Item.DoesNotExist:
+			return value
+
+class ItemForm(forms.Form):
+	nombre = forms.CharField(max_length=100)
+	descripcion = forms.CharField(max_length=255)
+	precio = forms.DecimalField(max_digits=10, decimal_places=2)
+	categoria = forms.ChoiceField(choices=[(categoria.id, categoria.nombre) for categoria in Categoria.objects.all()], widget=forms.Select(attrs={'class':'ddl'}))
+	existencia = forms.IntegerField()
+	tienda = forms.ChoiceField(choices=[(tienda.id, tienda.nombre) for tienda in Tienda.objects.all()], widget=forms.Select(attrs={'class':'ddl'}))
 
 	def save(self, tienda, commit = True):
 		item = super(ItemForm, self).save(commit = False)
@@ -57,16 +69,20 @@ class ItemForm(forms.ModelForm):
 			item.save()
 		return item
 
-class CategoriaForm(forms.ModelForm):
-	class Meta:
-		model = Categoria
+class CategoriaField(forms.CharField):
+	def clean(self, value):
+		super(CategoriaField, self).clean(value)
+		try:
+			Categoria.objects.get(nombre=value)
+			raise forms.ValidationError("That category already exists.")
+		except Categoria.DoesNotExist:
+			return value
 
-	def save(self, commit = True):
-		categoria = super(CategoriaForm, self).save(commit = False)
+class CategoriaForm(forms.Form):
+	nombre = CategoriaField(max_length=100)
 
-		if commit:
-			categoria.save()
-		return categoria
+	def clean(self, *args, **kwargs):
+		return super(CategoriaForm, self).clean(*args, **kwargs)
 
 class CarritoItemForm(forms.ModelForm):
 	pass
