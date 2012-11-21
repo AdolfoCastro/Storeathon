@@ -127,7 +127,7 @@ def kart_remove(request, id):
 
 def kart(request):
 	try:
-		kart = Carrito.objects.get(comprador=request.user.id, checkedOut=False, timestamp<=datetime.datetime.now()+timedelta(days=1))
+		kart = Carrito.objects.get(comprador=request.user.id, checkedOut=False)
 		kart_items = CarritoItem.objects.get(carrito=kart.id)
 	except CarritoItem.DoesNotExist:
 		raise Http404
