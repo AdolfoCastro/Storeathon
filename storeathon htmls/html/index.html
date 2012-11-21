@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Storeathon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="style.css" />
+<style type="text/css">
+<!--
+body {margin:50; padding:50; background:#fff;}
+#slidebox{position:relative; border:1px solid #ccc; margin:40px auto;overflow:hidden;}
+#slidebox, #slidebox ul {width:600px;height:300px;}
+#slidebox, #slidebox ul li{width:600px;height:300px;}
+#slidebox ul li{position:relative; left:0; background:#eee; float:left;list-style: none; padding:15px 28px;  font-family:Verdana, Geneva, sans-serif; font-size:13px;}
+#slidebox .next, #slidebox .previous{position:absolute; z-index:2; display:block; width:21px; height:21px;top:139px;}
+#slidebox .next{right:0; margin-right:10px; background:url(images/slidebox_next.png) no-repeat left top;}
+#slidebox .next:hover{background:url(images/slidebox_next_hover.png) no-repeat left top;}
+#slidebox .previous{margin-left:10px; background:url(images/slidebox_previous.png) no-repeat left top;}
+#slidebox .previous:hover{background:url(images/slidebox_previous_hover.png) no-repeat left top;}
+#slidebox .thumbs{position:absolute; z-index:2; bottom:10px; right:10px;}
+#slidebox .thumbs a{display:block; margin-left:5px; float:left; font-family:Verdana, Geneva, sans-serif; font-size:9px; text-decoration:none; padding:2px 4px; background:url(images/slidebox_thumb.png); color:#fff;}
+#slidebox .thumbs a:hover{background:#fff; color:#000;}
+#slidebox .thumbs .thumbActive{background:#fff; color:#000; display:block; margin-left:5px; float:left; font-family:Verdana, Geneva, sans-serif; font-size:9px; text-decoration:none; padding:2px 4px;}
+-->
+</style>
+</head>
+
+<body>
+	<div>
+		<a href="index.html"><img src="images/logo.png"  width="237" height="123" class="float" alt="setalpm" /></a>																																																																	
+      <div class="topnav">
+			<span>&nbsp</span> 
+		    
+		</div>
+		<ul id="menu">
+			<li><a href="index.html"><img src="images/butInicio.gif" alt="" width="110" height="32" /></a></li>
+			<li><a href="registro.html"><img src="images/butRegistro.gif" alt="" width="110" height="32" /></a></li>
+			<li><a href="precios.html"><img src="images/butPrecios.gif" alt="" width="110" height="32" /></a></li>
+			<li><a href="tiendas.html"><img src="images/butTiendas.gif" alt="" width="110" height="32" /></a></li>
+			<li><a href="acercade.html"><img src="images/butAcercaDe.gif" alt="" width="110" height="32" /></a></li>
+			<li><a href="#"><img src="images/butShoppingCart.gif" alt="" width="110" height="32" /></a></li>
+		</ul>
+	</div>
+	<div id="content">
+		<div id="sidebar">
+			<div id="navigation">
+				<strong><p>Inicie Sesión</p></strong>
+				<BR>
+				<FORM METHOD=POST ACTION="j_security_check">
+				<p>
+					<font size="2"> <strong> Especifique el ID de usuario y la contrase&ntilde;a: </strong></font>
+					<BR>
+					<BR>
+					<strong> ID de usuario:  </strong> <input type="text" size="20" name="j_username">
+					<BR>
+					<BR>
+					<strong> Contrase&ntilde;a:&nbsp&nbsp&nbsp</strong>  <input type="password" size="20" name="j_password">
+					<BR>
+					<BR>
+					<input type="submit" name="login" value="Iniciar sesión">
+				</p>
+				<BR>
+				<BR>
+				<BR>
+				<BR>
+				</form>
+				<div id="cart">
+					<strong>Shopping cart:</strong> <br /> 0 items
+				</div>
+			</div>
+		</div>
+		<div id="main">
+			<script src="js/jquery-1.5.2.min.js" type="text/javascript"></script>
+			<script src="js/jcarousellite_1.0.1c5.js" type="text/javascript"></script>
+			<script type="text/javascript">
+
+
+			$(function() {
+				$("#slidebox").jCarouselLite({
+					vertical: false,
+					hoverPause:true,
+					btnPrev: ".previous",
+					btnNext: ".next",
+					visible: 1,
+					start: 0,
+					scroll: 1,
+					circular: true,
+					auto:1000,
+					speed:500,				
+					btnGo:
+					    [".1", ".2",
+					    ".3", ".4"],
+					
+					afterEnd: function(a, to, btnGo) {
+							if(btnGo.length <= to){
+								to = 0;
+							}
+							$(".thumbActive").removeClass("thumbActive");
+							$(btnGo[to]).addClass("thumbActive");
+					    }
+				});
+			});
+			</script>
+			</head>
+			<body>
+			<div id="slidebox">
+			<div class="next"></div>
+			<div class="previous"></div>
+			<div class="thumbs">
+			<a href="#" onClick="" class="1 thumbActive">1</a> 
+			<a href="#" onClick="" class="2">2</a> 
+			<a href="#" onClick="" class="3 ">3</a> 
+			<a href="#" onClick="" class="4">4</a> 
+			</div>
+				<ul>
+			    	<li><img src="images/shopping1.jpeg" alt="" width="600" height="300" /></li>
+			    	<li><img src="images/shopping2.jpeg" alt="" width="600" height="300" /></li>
+			    	<li><img src="images/shopping3.jpeg" alt="" width="600" height="300" /></li>
+			    	<li><img src="images/shopping4.jpeg" alt="" width="600" height="300" /></li>
+				</ul>
+			</div>
+
+            <br />
+		</div>
+	</div>
+	<div id="footer">
+		<img src="images/cards.jpg" alt="" width="919" height="76" />
+		<ul>
+			<li><a href="#">Home page</a> |</li>
+			<li><a href="#">New Products</a> |</li>
+			<li><a href="#">All Products</a> |</li>
+			<li><a href="#">F.A.Q.</a> |</li>
+			<li><a href="#">Contacts</a></li>
+		</ul>
+		<p>Copyright ©. All rights reserved. Design by <a href="http://www.bestfreetemplates.info" title="Free CSS Templates" target="_blank" class="bft">BFT</a></p>																																																																				
+	</div>
+<map name="Map">
+	<area shape="rect" coords="16,306,159,326" href="#">
+</map>
+</body>
+</html>
