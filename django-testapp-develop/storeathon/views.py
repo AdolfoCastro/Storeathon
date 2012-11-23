@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 import datetime
 
-from storeathon.models import Tienda, Item, Categoria
+from storeathon.models import Tienda, Item, Categoria, Carrito, CarritoItem
 from storeathon.forms import SignupForm, TiendaForm, ItemForm, CategoriaForm
 
 def signup(request):
@@ -20,7 +20,7 @@ def signup(request):
 			new_user.set_password(form.cleaned_data['password'])
 			new_user.save()
 
-			return HttpResponseRedirect('/home/')
+			return HttpResponseRedirect('/')
 
 	else:
 		form = SignupForm()
@@ -53,10 +53,12 @@ def tienda_new(request):
 def tienda(request, slug):
 	try:
 		tienda = Tienda.objects.get(slug=slug)
+		items = Item.objects.filter(tienda=tienda.id)
 	except Tienda.DoesNotExist:
 		raise Http404
 	return render(request, 'store/store.html',{
-		'tienda': tienda
+		'tienda': tienda,
+		'items': items
 		})
 
 @login_required
@@ -119,8 +121,40 @@ def categoria_list(request):
 		'categorias': categorias
 		})
 
-def kart_add(request, id):
-	pass
+def kart_add(request, slug):
+	try:
+		kart = Carrito.objects.get(comprador=request.user.id, checkedOut=False)
+		try:
+			item = Item.objects.get(slug=slug)
+			kart_item = CarritoItem.objects.get(carrito=kart, item=item)
+			kart_item.cantidad = kart_item.cantidad + 1
+			kart_item.save()
+		except CarritoItem.DoesNotExist:
+			kart_item = CarritoItem()
+			kart_item.carrito = kart
+			kart_item.item = Item.objects.get(slug=slug)
+			kart_item.cantidad = 1
+			kart_item.save()
+	except Carrito.DoesNotExist:
+		kart = Carrito()
+		kart.total = Item.objects.get(slug=slug).precio
+		kart.comprador = request.user
+		kart.checkedOut = False
+		kart.timestamp = datetime.datetime.now()
+		kart.save()
+		kart_item = CarritoItem()
+		kart_item.carrito = kart
+		kart_item.item = Item.objects.get(slug=slug)
+		kart_item.cantidad = 1
+		kart_item.save()
+
+	kart_items = CarritoItem.objects.filter(carrito=kart)
+
+	return render(request, 'kart/kart.html', {
+		'kart': kart,
+		'kart_items': kart_items
+		})
+
 
 def kart_remove(request, id):
 	pass
@@ -137,6 +171,10 @@ def kart(request):
 		'kart_items': kart_items
 		})
 
+def precios(request):
+	return render(request, 'precios.html', {
+		})
+			
 def kart_remove_all(request):
 	pass
 

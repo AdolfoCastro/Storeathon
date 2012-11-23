@@ -1,9 +1,25 @@
 {% extends "base.html" %}
+{% load media %}
 
-{% block content %}
+{% block contenido %}
 
 <h1>{{ tienda.nombre }}</h1>
 
 <p> {{ tienda.descripcion }}</p>
 
+{% if items %}
+<div id="items">
+{% for item in items %}
+<div class="items">
+		<a href="/item/{{ item.slug }}"><img src="{% media_url 'images/bolsita.gif' %}" width="213" height="192" /></a><br />
+		<p>{{ item.nombre }}</p><span class="price">${{ item.precio }}</span><br />
+		<p></p>
+	</div>
+{% endfor %}
+</div>
+{% endif %}
+
 {% endblock %}
+
+
+

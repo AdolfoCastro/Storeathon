@@ -1,12 +1,19 @@
 {% extends "base.html" %}
+{% load media %}
+{% block contenido %}
 
-{% block content %}
-
-<h1>{{ item.nombre }}</h1>
-<p>{{ item.descripcion }}</p>
-
-<p>${{ item.precio }}</p>
-
-<a href="kart/add/{{ item.slug }}">Agregar</a>
+<div id="items">
+<div class="items">
+	<strong><h3>{{ item.nombre }}</h3></strong>
+	<img src="{% media_url 'images/bolsita.gif' %}" width="213" height="192" /> <p align="left">{{ item.descripcion }} </p><br />
+		<span class="price">${{ item.precio }}</span><br />
+		<p></p><br/>
+	</div>
+</div>
+<div class="items">
+		
+		<p></p><br/>
+	</div>
+</div>
 
 {% endblock %}
